@@ -1,0 +1,351 @@
+<!-- 
+    PROJECT: Developer Portfolio (VS Code Theme)
+    AUTHOR: Caio Henrik
+    DESCRIPTION: A single-page portfolio that mimics the Visual Studio Code interface.
+                 It uses HTML/CSS to simulate code syntax highlighting and IDE layout.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO: Meta Description -->
+    <meta name="description" content="Caio Henrik Software Engineer Portfolio. Projects in C#, Python, C++ and Mods.">
+    
+    <!-- UI: Theme color for mobile browsers (Matches the CSS background) -->
+    <meta name="theme-color" content="#0f0f1a">
+    
+    <title>CAIO HENRIK | Software Engineer</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- FONTS: Monospaced fonts for code look-and-feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    
+    <!-- BACKGROUND: Canvas for particle animation -->
+    <canvas id="neural-canvas"></canvas>
+    <div class="nebula-overlay"></div>
+
+    <!-- LAYOUT: Main Flexbox container for the IDE structure -->
+    <div class="ide-layout">
+        
+        <!-- SIDEBAR: Activity Bar (Leftmost icons) -->
+        <aside class="activity-bar">
+            <div class="act-icon active"><i class="far fa-copy"></i></div>
+            <div class="act-icon"><i class="fas fa-search"></i></div>
+            <div class="act-icon"><i class="fas fa-code-branch"></i></div>
+            <div class="act-icon bottom"><i class="fas fa-cog"></i></div>
+        </aside>
+
+        <!-- SIDEBAR: Explorer (File tree navigation) -->
+        <aside class="explorer">
+            <div class="profile-section">
+                <div class="profile-pic">
+                    <img src="https://github.com/SHOUTEDI.png" alt="Profile">
+                </div>
+                <span class="profile-name">CAIO HENRIK</span>
+            </div>
+
+            <div class="explorer-header">EXPLORER: UNIVERSE</div>
+            
+            <!-- FOLDER: Workspace Files -->
+            <div class="folder open">
+                <div class="folder-title"><i class="fas fa-chevron-down"></i> WORKSPACE</div>
+                <div class="file-list">
+                    <!-- NAVIGATION: Clicking these switches the main view -->
+                    <div class="file-link active-file" onclick="switchTab('portfolio')">
+                        <i class="fab fa-cuttlefish c-icon"></i> Portfolio.cs
+                    </div>
+                    <div class="file-link" onclick="switchTab('gamedeals')">
+                        <i class="fab fa-python py-icon"></i> Game_Deals.py
+                    </div>
+                    <div class="file-link" onclick="switchTab('monitor')">
+                        <i class="fab fa-python py-icon"></i> Sys_Monitor.py
+                    </div>
+                    <div class="file-link" onclick="switchTab('mod')">
+                        <i class="fas fa-code xml-icon"></i> Mod_Raids.xml
+                    </div>
+                </div>
+            </div>
+
+            <div class="folder open">
+                <div class="folder-title"><i class="fas fa-chevron-down"></i> INFO</div>
+                <div class="file-list">
+                    <div class="file-link" onclick="switchTab('social')">
+                        <i class="fas fa-brackets-curly json-icon"></i> Profile.json
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN: Editor Area (Where content is displayed) -->
+        <main class="editor-area">
+            
+            <!-- TABS: Top navigation bar -->
+            <div class="tab-bar">
+                <div class="tab active" id="tab-btn-portfolio" onclick="switchTab('portfolio')">
+                    <i class="fab fa-cuttlefish c-icon"></i> Portfolio.cs
+                </div>
+                <div class="tab inactive" id="tab-btn-gamedeals" onclick="switchTab('gamedeals')">
+                    <i class="fab fa-python py-icon"></i> Game_Deals.py
+                </div>
+            
+                <div class="tab inactive" id="tab-btn-monitor" onclick="switchTab('monitor')">
+                    <i class="fab fa-python py-icon"></i> Sys_Monitor.py
+                </div>
+                <div class="tab inactive" id="tab-btn-mod" onclick="switchTab('mod')">
+                    <i class="fas fa-code xml-icon"></i> Mod.xml
+                </div>
+                <div class="tab inactive" id="tab-btn-social" onclick="switchTab('social')">
+                    <i class="fas fa-brackets-curly json-icon"></i> Profile.json
+                </div>
+            </div>
+
+            <div class="code-container">
+                <!-- GUTTER: Line numbers generated by JS -->
+                <div class="line-numbers"></div> 
+
+                <!-- VIEW: Portfolio (C# Style) -->
+                <div class="content-wrapper" id="view-portfolio">
+                    <header class="hero">
+                        <p class="comment" data-en="// Loading core libraries..." data-pt="// Carregando bibliotecas principais...">// Loading core libraries...</p>
+                        <p class="comment">using <span class="namespace">System</span>;</p>
+                        <p class="comment">using <span class="namespace">Universe.Technology</span>;</p>
+                        <br>
+                        
+                        <p class="class-def">
+                            <span class="keyword">namespace</span> <span class="namespace">Portfolio</span> {<br>
+                            &nbsp;&nbsp;<span class="comment">/// &lt;summary&gt;</span><br>
+                            &nbsp;&nbsp;<span class="comment" data-en="/// Main class defining my professional profile." data-pt="/// Classe principal definindo meu perfil profissional.">/// Main class defining my professional profile.</span><br>
+                            &nbsp;&nbsp;<span class="comment">/// &lt;/summary&gt;</span><br>
+                            &nbsp;&nbsp;<span class="keyword">public class</span> <span class="class-name">SHOUTEDI</span> : <span class="inherited">SoftwareEngineer</span> {
+                        </p>
+                        
+                        <div class="indent-1">
+                            <br>
+                            <p class="comment" data-en="// PROPERTIES (Immutable characteristics)" data-pt="// PROPRIEDADES (Características imutáveis)">// PROPERTIES (Immutable characteristics)</p>
+
+                            <span class="keyword">public string</span> Role = <span class="string">"<span id="typewriter"></span><span class="cursor-blink">|</span>"</span>;<br>
+                            <span class="keyword">public string</span> Status = <span class="string">"Open_To_Work"</span>;<br>
+                            <span class="keyword">public int</span> Semester = <span class="string">3</span>;
+                            
+                            <br>
+                            <p class="doc-comment">
+                                <span class="comment">/* </span><br>
+                                <span class="comment"> * CONSTRUCTOR:</span><br>
+                                <span class="comment" data-en=" * Initializes passion for problem solving." data-pt=" * Inicializa paixão por resolução de problemas."> * Initializes passion for problem solving.</span><br>
+                                <span class="comment"> */</span>
+                            </p>
+                            <span class="keyword">public</span> <span class="class-name">SHOUTEDI</span>() {
+                                <div class="indent-1">
+                                    <span class="function-name">Init_Systems</span>();<br>
+                                    <span class="keyword">this</span>.Focus = <span class="string">"Backend & Game Systems"</span>;<br>
+                                    <span class="keyword">this</span>.Motivation = <span class="string">"High"</span>;
+                                </div>
+                            }
+                        </div>
+                    </header>
+
+                    <!-- SECTION: Hard Skills -->
+                    <section class="section-block">
+                        <div class="indent-1">
+                            <br>
+                            <p class="comment" data-en="// LIST: Technical tools collection" data-pt="// LISTA: Coleção de ferramentas técnicas">// LIST: Technical tools collection</p>
+                            <span class="keyword">public List</span>&lt;<span class="class-name">String</span>&gt; HardSkills = <span class="keyword">new</span>() {
+                        </div>
+                        <div class="indent-2">
+                            <span class="string">"C#"</span>, <span class="comment" data-en="// Main Language (Unity/Backend)" data-pt="// Linguagem Principal (Unity/Backend)">// Main Language (Unity/Backend)</span><br>
+                            <span class="string">"Python"</span>, <span class="comment" data-en="// Automation, Scraping & Data" data-pt="// Automação, Scraping & Dados">// Automation, Scraping & Data</span><br>
+                            <span class="string">"C++"</span>, <span class="comment" data-en="// Memory management & Performance" data-pt="// Gerenciamento de memória & Performance">// Memory management & Performance</span><br>
+                            <span class="string">"Godot Engine"</span>, <span class="comment" data-en="// Game Logic" data-pt="// Lógica de Jogos">// Game Logic</span><br>
+                            <span class="string">"Git/GitHub"</span> <span class="comment" data-en="// Version Control" data-pt="// Controle de Versão">// Version Control</span>
+                        </div>
+                        <div class="indent-1">};</div>
+                    </section>
+
+                    <!-- SECTION: Soft Skills -->
+                    <section class="section-block">
+                        <div class="indent-1">
+                            <br>
+                            <p class="comment" data-en="// ENUM: Interpersonal skills categories" data-pt="// ENUM: Categorias de habilidades interpessoais">// ENUM: Interpersonal skills categories</p>
+                            <span class="keyword">public enum</span> <span class="class-name">SoftSkills</span> {
+                        </div>
+                        <div class="indent-2">
+                            <span class="variable">English_Intermediate</span>, <span class="comment" data-en="// Technical reading" data-pt="// Leitura técnica">// Technical reading</span><br>
+                            <span class="variable">Problem_Solving</span>, <span class="comment" data-en="// Debugging & Logic" data-pt="// Depuração & Lógica">// Debugging & Logic</span><br>
+                            <span class="variable">Team_Work</span>, <span class="comment" data-en="// Git Flow experience" data-pt="// Experiência com Git Flow">// Git Flow experience</span><br>
+                            <span class="variable">Adaptability</span> <span class="comment" data-en="// Fast learner" data-pt="// Aprendizado rápido">// Fast learner</span>
+                        </div>
+                        <div class="indent-1">}</div>
+                    </section>
+
+                    <section class="section-block">
+                        <div class="indent-1">
+                            <br>
+                            <p class="doc-comment">
+                                <span class="comment">/* </span><br>
+                                <span class="comment"> * METHOD:</span><br>
+                                <span class="comment" data-en=" * Returns current academic status." data-pt=" * Retorna status acadêmico atual."> * Returns current academic status.</span><br>
+                                <span class="comment"> */</span>
+                            </p>
+                            <span class="keyword">public string</span> <span class="function-name">GetEducation</span>() {
+                                <div class="indent-1">
+                                    <span class="keyword">return</span> <span class="string" data-en="Bachelor of Software Engineering (In Progress)" data-pt="Bacharelado em Engenharia de Software (Em Progresso)">"Bachelor of Software Engineering (In Progress)"</span>;
+                                </div>
+                            }
+                        </div>
+                    </section>
+
+                    <!-- SECTION: Projects Showcase -->
+                    <section class="section-block">
+                        <div class="indent-1">
+                            <br>
+                            <p class="comment" data-en="// Rendering featured projects..." data-pt="// Renderizando projetos em destaque...">// Rendering featured projects...</p>
+                            <span class="keyword">private void</span> <span class="function-name">Render_Showcase</span>() {
+                        </div>
+
+                        <div class="grid indent-2">
+                            <div class="card" onclick="switchTab('gamedeals')" data-tilt>
+                                <div class="card-header"><i class="fab fa-python py-icon"></i><h3>Game_Deals.py</h3></div>
+                                <p class="desc" data-en="Steam API Price Tracker Bot." data-pt="Bot rastreador de preços da Steam API.">Steam API Price Tracker Bot.</p>
+                                <span class="btn-fake" data-en="View Source Code ->" data-pt="Ver Código Fonte ->">View Source Code -></span>
+                            </div>
+
+                           
+                            <div class="card" onclick="switchTab('monitor')" data-tilt>
+                                <div class="card-header"><i class="fab fa-python py-icon"></i><h3>Sys_Monitor.py</h3></div>
+                                <p class="desc" data-en="System Resource Monitor (Automation)." data-pt="Monitor de Recursos do Sistema (Automação).">System Resource Monitor (Automation).</p>
+                                <span class="btn-fake" data-en="View Source Code ->" data-pt="Ver Código Fonte ->">View Source Code -></span>
+                            </div>
+
+                            <div class="card highlight-card" onclick="switchTab('mod')" data-tilt>
+                                <div class="card-header"><i class="fas fa-gamepad xml-icon"></i><h3>More_Balanced_Raids</h3></div>
+                                <p class="desc" data-en="Popular Mod with +15k subs on Steam." data-pt="Mod popular com +15k inscritos na Steam.">Popular Mod with +15k subs on Steam.</p>
+                                <span class="btn-fake" data-en="View Project ->" data-pt="Ver Projeto ->">View Project -></span>
+                            </div>
+                        </div>
+                        <div class="indent-1">}</div>
+                    </section>
+                    
+                    <div class="indent-1">}</div> <div>}</div> </div>
+
+                <!-- VIEW: Python Project -->
+                <div class="content-wrapper" id="view-gamedeals" style="display: none;">
+                    <p class="comment" data-en="# THIS FILE IS A PYTHON SCRIPT" data-pt="# ESTE ARQUIVO É UM SCRIPT PYTHON"># THIS FILE IS A PYTHON SCRIPT</p>
+                    <p class="comment" data-en="# Python is excellent for automation and data analysis." data-pt="# Python é excelente para automação e análise de dados."># Python is excellent for automation and data analysis.</p>
+                    <br>
+                    <span class="keyword">import</span> <span class="variable">steam_api</span>
+                    <span class="keyword">import</span> <span class="variable">pandas</span> <span class="keyword">as</span> <span class="variable">pd</span>
+                    
+                    <br>
+                    <p class="comment" data-en="# Function definition to find deals" data-pt="# Definição de função para encontrar ofertas"># Function definition to find deals</p>
+                    <span class="keyword">def</span> <span class="function-name">find_best_prices</span>():
+                    <div class="indent-1">
+                        <span class="variable">games</span> = <span class="variable">steam_api</span>.get_all()<br>
+                        <span class="comment" data-en="# Filter games with > 50% discount" data-pt="# Filtrar jogos com > 50% de desconto"># Filter games with > 50% discount</span><br>
+                        <span class="keyword">if</span> game.discount > <span class="string">50</span>:
+                        <div class="indent-1">
+                            <span class="function-name">save_to_excel</span>(game)<br>
+                            <span class="function-name">print</span>(<span class="string">"Deal found!"</span>)
+                        </div>
+                    </div>
+
+                    <br>
+                    <p class="comment" data-en="# --- OUTPUT RESULT ---" data-pt="# --- RESULTADO DE SAÍDA ---"># --- OUTPUT RESULT ---</p>
+                    <div class="mod-img-container">
+                        <img src="imgs\gamedeal.png" alt="Python Output">
+                    </div>
+                    <br>
+                    <a href="https://github.com/SHOUTEDI/Game-Deals-Tracker" target="_blank" class="btn" data-en="View on GitHub ->" data-pt="Ver no GitHub ->">View on GitHub -></a>
+                </div>
+
+                <!-- VIEW: Sys_Monitor (Agora em Python) -->
+                <div class="content-wrapper" id="view-monitor" style="display: none;">
+                    <p class="comment" data-en="# THIS FILE IS PYTHON" data-pt="# ESTE ARQUIVO É PYTHON"># THIS FILE IS PYTHON</p>
+                    <p class="comment" data-en="# Uses psutil library to monitor hardware stats." data-pt="# Usa a biblioteca psutil para monitorar hardware."># Uses psutil library to monitor hardware stats.</p>
+                    <br>
+                    <span class="keyword">import</span> <span class="variable">psutil</span>
+                    <span class="keyword">import</span> <span class="variable">time</span>
+                    
+                    <br>
+                    <span class="keyword">def</span> <span class="function-name">monitor_system</span>():
+                    <div class="indent-1">
+                        <span class="comment" data-en="# Get CPU and Memory usage" data-pt="# Obter uso de CPU e Memória"># Get CPU and Memory usage</span><br>
+                        <span class="variable">cpu</span> = <span class="variable">psutil</span>.cpu_percent(<span class="variable">interval</span>=<span class="string">1</span>)<br>
+                        <span class="variable">ram</span> = <span class="variable">psutil</span>.virtual_memory().percent<br>
+                        <br>
+                        <span class="function-name">print</span>(<span class="string">f"CPU Load: {cpu}% | RAM Usage: {ram}%"</span>)
+                    </div>
+
+                    <br>
+                    <p class="comment" data-en="# --- USER INTERFACE ---" data-pt="# --- INTERFACE DO USUÁRIO ---"># --- USER INTERFACE ---</p>
+                    <div class="mod-img-container">
+                        <img src="imgs\sysmonitor.png" alt="Python Output">
+                    </div>
+                    <br>
+                    <a href="https://github.com/SHOUTEDI/System-Monitor" target="_blank" class="btn" data-en="View on GitHub ->" data-pt="Ver no GitHub ->">View on GitHub -></a>
+                </div>
+
+                <!-- VIEW: XML Mod -->
+                <div class="content-wrapper" id="view-mod" style="display: none;">
+                    <p class="comment" data-en="&lt;!-- THIS FILE IS XML + C# --&gt;" data-pt="&lt;!-- ESTE ARQUIVO É XML + C# --&gt;">&lt;!-- THIS FILE IS XML + C# --&gt;</p>
+                    <p class="comment" data-en="&lt;!-- XML is Used to store Mod configuration data. --&gt;" data-pt="&lt;!-- XML é usado para armazenar dados de configuração do Mod. --&gt;">&lt;!-- XML is Used to store Mod configuration data. --&gt;</p>
+                    <br>
+                    <p class="xml-tag">&lt;ModMetaData&gt;</p>
+                    <div class="indent-1">
+                        <p class="xml-tag">&lt;Title&gt;<span class="xml-content">More Balanced Raids</span>&lt;/Title&gt;</p>
+                        <p class="xml-tag">&lt;Description&gt;</p>
+                        <div class="mod-description indent-1" data-en="Modification that alters RimWorld's difficulty algorithm.<br>Makes progression fairer and fixes text bugs." data-pt="Modificação que altera o algoritmo de dificuldade do RimWorld.<br>Torna a progressão mais justa e corrige bugs de texto.">
+                            Modification that alters RimWorld's difficulty algorithm.<br>
+                            Makes progression fairer and fixes text bugs.
+                        </div>
+                        <p class="xml-tag">&lt;/Description&gt;</p>
+                        
+                        <br>
+                        <p class="comment" data-en="&lt;!-- Steam Preview Image --&gt;" data-pt="&lt;!-- Imagem de Prévia da Steam --&gt;">&lt;!-- Steam Preview Image --&gt;</p>
+                        <div class="mod-img-container">
+                            <img src="imgs\mod.png" alt="Mod Preview">
+                        </div>
+                        <br>
+                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3525897161" target="_blank" class="steam-btn" data-en="View on Steam Workshop" data-pt="Ver na Steam Workshop">
+                            <i class="fab fa-steam"></i> View on Steam Workshop
+                        </a>
+                    </div>
+                    <p class="xml-tag">&lt;/ModMetaData&gt;</p>
+                </div>
+
+                <!-- VIEW: JSON Profile -->
+                <div class="content-wrapper" id="view-social" style="display: none;">
+                    <p class="comment" data-en="// JSON FILE (JavaScript Object Notation)" data-pt="// ARQUIVO JSON (Notação de Objeto JavaScript)">// JSON FILE (JavaScript Object Notation)</p>
+                    <p class="comment" data-en="// Standard format for web data exchange." data-pt="// Formato padrão para troca de dados web.">// Standard format for web data exchange.</p>
+                    <br>
+                    <span class="keyword">const</span> <span class="variable">UserProfile</span> = {
+                    <div class="indent-1">
+                        <span class="string">"Developer"</span>: <span class="string">"Caio Henrik"</span>,<br>
+                        <span class="string">"Status"</span>: <span class="string" data-en="Open for Work" data-pt="Disponível para Trabalho">"Open for Work"</span>,<br>
+                        <br>
+                        <span class="string">"Social_Links"</span>: {
+                        <div class="indent-1">
+                            <span class="comment" data-en="// Click values to open" data-pt="// Clique nos valores para abrir">// Click values to open</span><br>
+                            <span class="string">"GitHub"</span>: <a href="https://github.com/SHOUTEDI" target="_blank" class="json-link">"github.com/SHOUTEDI"</a>,<br>
+                            <span class="string">"Instagram"</span>: <a href="https://www.instagram.com/caiohenrik__/" target="_blank" class="json-link">"@caiohenrik__"</a>,<br>
+                            <span class="string">"LinkedIn"</span>: <a href="#" target="_blank" class="json-link">"https://www.linkedin.com/in/caio-henrik-silva-rodrigues-859835376/"</a>,<br>
+                            <span class="string">"Email"</span>: <a href="mailto:shoutedidev@gmail.com" class="json-link" data-en="Contact Me" data-pt="Contate-me">"Contact Me"</a>
+                        </div>
+                        }
+                    </div>
+                    };
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- SCRIPTS: External libraries and main logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

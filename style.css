@@ -1,0 +1,252 @@
+/* --- 1. COSMIC PALETTE (Blue/Purple/Neon) --- */
+:root {
+    /* Backgrounds */
+    --bg-app: #0f0f1a;       /* Deep Space Blue */
+    --bg-sidebar: #151525;   /* Dark Purple/Blue */
+    --bg-activity: #0a0a12;  /* Almost Black */
+    --bg-selection: #2a2a40; /* Highlight */
+    
+    /* Accent Colors */
+    --accent-cyan: #00f2ff;  /* Neon Cyan (Tech) */
+    --accent-purple: #bd00ff; /* Neon Purple (Magic/Cosmic) */
+    --accent-blue: #3e90ff;   /* VS Code Blue */
+    
+    /* Text */
+    --text-main: #e0e6ed;    /* Ice White */
+    --text-muted: #7a829e;   /* Blueish Grey (Comments) */
+
+    /* Syntax Highlighting Colors */
+    --kw-pink: #ff79c6;      /* Keywords (public, class) */
+    --class-blue: #8be9fd;   /* Classes */
+    --var-white: #f8f8f2;    /* Variables */
+    --str-green: #50fa7b;    /* Strings */
+}
+
+/* Global Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #050508;
+    color: var(--text-main);
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050508 100%);
+}
+
+/* Canvas for Particle Animation */
+#neural-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; opacity: 0.6;
+}
+
+/* Main Layout Container */
+.ide-layout { 
+    display: flex; height: 100vh; 
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.5); 
+}
+
+/* --- ACTIVITY BAR (Left Sidebar) --- */
+.activity-bar {
+    width: 50px; background: var(--bg-activity);
+    display: flex; flex-direction: column; align-items: center; padding-top: 15px;
+    border-right: 1px solid #2a2a40;
+}
+.act-icon {
+    font-size: 1.5rem; color: var(--text-muted); margin-bottom: 25px; cursor: pointer;
+    transition: 0.3s;
+}
+.act-icon:hover, .act-icon.active { 
+    color: var(--accent-cyan); 
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+.act-icon.bottom { margin-top: auto; margin-bottom: 20px;}
+
+/* --- EXPLORER (File Tree) --- */
+.explorer {
+    width: 260px; background: var(--bg-sidebar);
+    display: flex; flex-direction: column; border-right: 1px solid #2a2a40;
+}
+
+.profile-section {
+    padding: 25px; display: flex; flex-direction: column; align-items: center;
+    border-bottom: 1px solid #2a2a40; margin-bottom: 10px;
+}
+.profile-pic {
+    width: 85px; height: 85px; border-radius: 50%;
+    border: 2px solid var(--accent-purple);
+    padding: 3px; overflow: hidden;
+    box-shadow: 0 0 25px rgba(189, 0, 255, 0.4);
+    transition: transform 0.3s;
+}
+.profile-pic:hover { transform: scale(1.05) rotate(5deg); }
+.profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.profile-name { margin-top: 15px; font-weight: bold; color: #fff; letter-spacing: 1px; font-size: 0.9rem;}
+
+.explorer-header { padding: 0 20px; font-size: 0.7rem; color: var(--text-muted); font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;}
+
+.folder { margin-bottom: 10px; }
+.folder-title { padding: 5px 20px; color: var(--text-main); font-weight: bold; font-size: 0.8rem; cursor: pointer; }
+.file-link {
+    padding: 8px 0 8px 35px; color: var(--text-muted); cursor: pointer; font-size: 0.85rem;
+    display: flex; align-items: center; gap: 10px; transition: 0.2s;
+}
+.file-link:hover { background: var(--bg-selection); color: #fff; }
+.file-link.active-file { 
+    background: rgba(189, 0, 255, 0.1); 
+    color: var(--accent-purple); 
+    border-left: 3px solid var(--accent-purple);
+    padding-left: 32px;
+}
+
+/* File Icons */
+.c-icon { color: var(--accent-cyan); }
+.py-icon { color: #3572A5; } 
+.cpp-icon { color: #f34b7d; } 
+.xml-icon { color: #e34c26; }
+.json-icon { color: #f1e05a; }
+
+/* --- EDITOR AREA (Main Content) --- */
+.editor-area { flex: 1; display: flex; flex-direction: column; background: var(--bg-app); position: relative;}
+
+.tab-bar { height: 40px; background: var(--bg-sidebar); display: flex; overflow-x: auto; border-bottom: 1px solid #2a2a40; }
+.tab {
+    padding: 0 20px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; font-size: 0.85rem; cursor: pointer;
+    border-right: 1px solid #2a2a40; border-top: 2px solid transparent; min-width: 130px; transition: 0.2s;
+}
+.tab:hover { background: var(--bg-selection); color: #fff; }
+.tab.active { 
+    background: var(--bg-app); color: #fff; 
+    border-top-color: var(--accent-cyan); 
+    box-shadow: inset 0 3px 10px rgba(0, 242, 255, 0.1);
+}
+
+.code-container { flex: 1; display: flex; overflow-y: auto; }
+.line-numbers {
+    width: 50px; text-align: right; padding-right: 15px; padding-top: 2rem;
+    color: var(--text-muted); opacity: 0.3; font-size: 0.9rem; line-height: 1.6;
+    border-right: 1px solid #2a2a40;
+}
+.line-numbers span { display: block; }
+
+.content-wrapper { flex: 1; padding: 2rem; max-width: 1000px; line-height: 1.6; animation: fadeUp 0.4s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Syntax Highlighting Classes */
+.keyword { color: var(--kw-pink); font-style: italic; }
+.namespace { color: var(--text-main); }
+.class-name { color: var(--class-blue); font-weight: bold; text-shadow: 0 0 5px rgba(139, 233, 253, 0.2);}
+.string { color: var(--str-green); }
+.function-name { color: var(--accent-cyan); }
+.comment { color: var(--text-muted); font-style: italic; }
+.variable { color: var(--var-white); }
+.xml-tag { color: var(--text-muted); }
+.xml-content { color: var(--str-green); font-weight: bold; }
+
+.indent-1 { margin-left: 2rem; }
+.indent-2 { margin-left: 4rem; }
+
+/* Projects Grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.card {
+    background: var(--bg-sidebar); border: 1px solid #2a2a40; padding: 1.5rem; border-radius: 8px;
+    cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+}
+.card:hover { 
+    border-color: var(--accent-purple); 
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 20px rgba(189, 0, 255, 0.15);
+}
+.card h3 { color: var(--text-main); font-size: 1rem; margin-bottom: 5px; margin-top: 5px; }
+.desc { font-size: 0.8rem; color: var(--text-muted); }
+.btn-fake { display: block; margin-top: 15px; font-size: 0.75rem; color: var(--accent-cyan); font-weight: bold; }
+
+.mod-img-container {
+    margin-top: 15px; border: 1px solid var(--accent-purple); padding: 5px; background: rgba(0,0,0,0.3);
+    display: inline-block; box-shadow: 0 0 15px rgba(189, 0, 255, 0.1);
+}
+.mod-img-container img { max-width: 100%; height: auto; display: block; opacity: 0.9;}
+
+.btn, .steam-btn, .json-link {
+    display: inline-block; color: var(--accent-cyan); text-decoration: none;
+    margin-top: 10px; font-weight: bold; border-bottom: 1px dashed transparent; transition: 0.2s;
+}
+.btn:hover, .steam-btn:hover { border-bottom-color: var(--accent-cyan); text-shadow: 0 0 8px var(--accent-cyan); }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-app); }
+::-webkit-scrollbar-thumb { background: #2a2a40; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-purple); }
+
+.cursor-blink { color: var(--accent-cyan); animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- RESPONSIVENESS & USABILITY (Mobile/Tablet) --- */
+@media screen and (max-width: 768px) {
+    /* Main Layout Adjustment */
+    .ide-layout {
+        flex-direction: column;
+        height: 100dvh; /* dvh handles mobile browser bars better */
+    }
+
+    /* Hide sidebars on mobile to focus on code/content */
+    /* User will use TABS to navigate */
+    .activity-bar, .explorer {
+        display: none;
+    }
+
+    /* Editor Area Adjustment */
+    .editor-area {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Improve Tab Usability on Touch */
+    .tab-bar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+        scrollbar-width: none; /* Firefox */
+    }
+    .tab-bar::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    .tab {
+        padding: 0 15px;
+        min-width: auto; /* Allows smaller tabs */
+        flex-shrink: 0;
+    }
+
+    /* Typography and Spacing Adjustment */
+    .content-wrapper {
+        padding: 1rem;
+        font-size: 0.9rem; /* Slightly smaller text to fit more code */
+    }
+    
+    .line-numbers {
+        display: none; /* Gain horizontal space by removing line numbers on mobile */
+    }
+
+    /* Grid Adjustment to 1 Column */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Image Adjustment */
+    .profile-pic {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* General Accessibility Improvements */
+button, .tab, .file-link, .card {
+    cursor: pointer;
+    touch-action: manipulation; /* Improves touch response */
+}
+
+/* Friendly Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bg-selection) var(--bg-app);
+}
