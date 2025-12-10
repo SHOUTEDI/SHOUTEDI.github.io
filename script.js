@@ -1,5 +1,3 @@
-// 1. LINE NUMBER GENERATOR
-// Dynamically creates line numbers for the editor gutter
 function generateLineNumbers() {
     const el = document.querySelector('.line-numbers');
     let html = '';
@@ -8,13 +6,11 @@ function generateLineNumbers() {
 }
 generateLineNumbers();
 
-// 2. TAB SWITCHING SYSTEM
-// Handles the logic for switching between different "files" (views)
+
 function switchTab(tabId) {
-    // List of available views
     const views = ['portfolio', 'gamedeals', 'monitor', 'mod', 'social'];
     
-    // Reset all views and buttons
+   
     views.forEach(id => {
         const viewEl = document.getElementById('view-' + id);
         const btnEl = document.getElementById('tab-btn-' + id);
@@ -26,13 +22,12 @@ function switchTab(tabId) {
         }
     });
 
-    // Activate selected view and button
+    
     const selectedView = document.getElementById('view-' + tabId);
     const selectedBtn = document.getElementById('tab-btn-' + tabId);
 
     if (selectedView) {
         selectedView.style.display = 'block';
-        // Trigger reflow to restart animation
         selectedView.style.animation = 'none';
         selectedView.offsetHeight; 
         selectedView.style.animation = 'fadeUp 0.4s ease';
@@ -49,8 +44,7 @@ function switchTab(tabId) {
     }
 }
 
-// 3. TYPEWRITER EFFECT
-// Simulates typing text for the "Role" property
+
 const textEl = document.getElementById('typewriter');
 const phrases = ["Game Developer", "Software Engineer", "Modder"];
 let pIndex = 0;
@@ -73,7 +67,7 @@ function type() {
 }
 document.addEventListener('DOMContentLoaded', type);
 
-// 4. BACKGROUND
+
 const canvas = document.getElementById('neural-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -120,7 +114,7 @@ function animateParticles() {
         particles[i].update();
         particles[i].draw();
         
-        // Draw connections between close particles
+      
         for(let j=i; j<particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
@@ -140,37 +134,35 @@ function animateParticles() {
 }
 animateParticles();
 
-// Tilt Effect (Disabled on mobile to save battery and prevent touch bugs)
+
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 if (!isMobile) {
     VanillaTilt.init(document.querySelectorAll(".card"), { max: 8, speed: 400, glare: true, "max-glare": 0.1 });
 }
 
-// 5. LANGUAGE DETECTION (PT-BR / EN)
+
 function setLanguage() {
-    // Detecta se a linguagem do navegador começa com 'pt' (pt-BR, pt-PT)
+    
     const userLang = navigator.language || navigator.userLanguage; 
     const isPortuguese = userLang.startsWith('pt');
 
-    // Se não for português, mantém o padrão (Inglês) e sai da função
+    
     if (!isPortuguese) return;
 
-    // Seleciona todos os elementos que têm tradução definida
+  
     const elements = document.querySelectorAll('[data-pt]');
 
-    elements.forEach(el => {
-        // Substitui o conteúdo HTML pelo valor do atributo data-pt
+    elements.forEach(el => {    
         el.innerHTML = el.getAttribute('data-pt');
     });
 
-    // Atualiza o efeito de digitação para português
+    
     if(typeof phrases !== 'undefined') {
-        // Sobrescreve o array de frases definido anteriormente
-        phrases.length = 0; // Limpa o array original
+        phrases.length = 0; 
         phrases.push("Desenvolvedor de Jogos", "Engenheiro de Software", "Modder");
     }
 }
 
-// Executa a detecção de linguagem ao carregar
+
 document.addEventListener('DOMContentLoaded', setLanguage);
